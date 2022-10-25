@@ -28,7 +28,7 @@ go
 create table donante 
 (
 	id_donante int primary key,
-	dni char(8) unique not null,
+	dni char(8) not null,
 	nombre varchar(20) not null,
 	apellido varchar(20) not null,
 	id_sexo int not null,
@@ -43,7 +43,7 @@ create table donante
 go
 create table paciente 
 (
-	dni char(8) unique not null,
+	dni char(8) not null,
 	nombre varchar(20) not null,
 	apellido varchar(20) not null,
 	id_sexo int not null,
@@ -59,7 +59,7 @@ go
 create table bioanalista 
 (
 	id_bioanalista int primary key,
-	dni char(8) unique not null,
+	dni char(8) not null,
 	nombre varchar(20) not null,
 	apellido varchar(20) not null,
 	id_sexo int not null,
@@ -69,33 +69,34 @@ create table bioanalista
 	constraint UQ__bioanalista_dni unique (dni),
 	constraint FK__bioanalista__sexo foreign key (id_sexo) references sexo (id_sexo),
 );
-
-create table bolsa (
-    id_bolsa int not null primary key,
-    fecha_extraccion date,
-    cantidad float (4),
-    fecha_vencimiento date,
-    hora_vencimiento time,
-    id_hemocomponente int,
-    id_donante int,
-    constraint FK_hemocomponente foreign key (id_hemocomponente) references tipo_hemocomponente (id_hemocomponente),
-    constraint FK_donante foreign key (id_donante) references donante (id_donante),
-    );
-     create table pruebas_donantes (
-    id_prueba int not null primary key,
-    id_bolsa int,
-    id_bioanalista int,
-    fecha date,
-    hcv bit,
-    hiv bit,
-   sifilis bit,
-   ahbc bit,
-   htlv bit,
-   chagas bit,
-   hbsag bit,
-   t_prueba bit,
-
-    constraint FK_bolsa foreign key (id_bolsa) references bolsa (id_bolsa),
-    constraint FK_bioanalista foreign key (id_bioanalista) references bioanalista(id_donaid_bioanalistante),
+go
+create table bolsa 
+(
+    id_bolsa int primary key,
+    fecha_extraccion smalldatetime,
+    cantidad numeric(5,2),
+    fecha_vencimiento smalldatetime,
+    id_donante int not null,
+    id_hemocomponente int not null,
+    constraint FK__bolsa__donante foreign key (id_donante) references donante (id_donante),
+    constraint FK__bolsa__tipo_hemocomponente foreign key (id_hemocomponente) references tipo_hemocomponente (id_hemocomponente)
+);
+go
+create table pruebas_donante (
+   id_prueba int identity primary key,
+   fecha smalldatetime not null,
+   hcv bit not null,
+   hiv bit not null,
+   sifilis bit not null,
+   ahbc bit not null,
+   htlv bit not null,
+   chagas bit not null,
+   hbsag bit not null,
+   t_prueba bit not null,
+   id_bolsa int not null,
+   id_bioanalista int not null,
+   constraint UQ__pruebas_donante_bolsa unique (id_bolsa),
+   constraint FK__pruebas_donante__bolsa foreign key (id_bolsa) references bolsa (id_bolsa),
+   constraint FK__pruebas_donante__bioanalista foreign key (id_bioanalista) references bioanalista (id_bioanalista)
     );
 go
