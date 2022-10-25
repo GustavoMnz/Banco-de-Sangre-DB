@@ -100,3 +100,28 @@ create table pruebas_donante (
    constraint FK__pruebas_donante__bioanalista foreign key (id_bioanalista) references bioanalista (id_bioanalista)
     );
 go
+create table solicitud_transfusion
+(
+	id_solicitud_transfusion int primary key,
+	fecha smalldatetime not null,
+	motivo varchar (40),
+	cantidad numeric (5,2),
+	paciente_dni char(8) not null,
+	id_hemocomponente int not null,
+	constraint FK__solicitud_transfusion__paciente foreign key (paciente_dni) references paciente (dni),
+	constraint FK__solicitud_transfusion__tipo_hemocomponente foreign key (id_hemocomponente) references tipo_hemocomponente (id_hemocomponente)
+);
+go
+create table transfusion
+(
+	id_transfusion int primary key,
+	fecha_transfusion smalldatetime not null,
+	fecha_recepcion smalldatetime not null,
+	muestra_reaccion varchar(40),
+	modificacion varchar(20),
+	id_solicitud_transfusion int not null,
+	id_bolsa int not null,
+	constraint FK__transfusion__solicitud_transfusion foreign key (id_solicitud_transfusion) references solicitud_transfusion (id_solicitud_transfusion),
+	constraint FK__transfusion__bolsa foreign key (id_bolsa) references bolsa (id_bolsa)
+);
+go
