@@ -73,9 +73,9 @@ go
 create table bolsa 
 (
     id_bolsa int primary key,
-    fecha_extraccion smalldatetime,
-    cantidad numeric(5,2),
-    fecha_vencimiento smalldatetime,
+    fecha_extraccion smalldatetime not null,
+    cantidad numeric(5,2) not null,
+    fecha_vencimiento smalldatetime not null,
     id_donante int not null,
     id_hemocomponente int not null,
     constraint FK__bolsa__donante foreign key (id_donante) references donante (id_donante),
@@ -116,7 +116,6 @@ create table transfusion
 (
 	id_transfusion int primary key,
 	fecha_transfusion smalldatetime not null,
-	fecha_recepcion smalldatetime not null,
 	muestra_reaccion varchar(40),
 	modificacion varchar(20),
 	id_solicitud_transfusion int not null,
@@ -125,3 +124,23 @@ create table transfusion
 	constraint FK__transfusion__bolsa foreign key (id_bolsa) references bolsa (id_bolsa)
 );
 go
+
+------------------------------------RESTRICCIONES------------------------------------
+
+alter table paciente
+	add constraint CK__paciente_fecha_nacimiento CHECK (fecha_nacimiento <= CURRENT_TIMESTAMP);
+
+alter table bioanalista
+	add constraint CK__bioanalista_fecha_nacimiento CHECK (fecha_nacimiento <= CURRENT_TIMESTAMP);
+
+alter table bolsa
+	add constraint DF__bolsa__fecha_extraccion DEFAULT CURRENT_TIMESTAMP FOR fecha_extraccion;
+
+alter table bolsa
+	add constraint CK__bolsa_cantidad CHECK (cantidad >= 50 AND cantidad<= 300);
+
+alter table bolsa
+	add constraint DF__bolsa__fecha_vencimiento DEFAULT NULL FOR fecha_vencimiento;
+
+alter table solicitud_transfusion
+	add constraint DF__solicitud_transfusion_fecha DEFAULT CURRENT_TIMESTAMP FOR fecha;
