@@ -83,7 +83,7 @@ create table bolsa
 );
 go
 create table pruebas_donante (
-   id_prueba int identity primary key,
+   id_prueba int primary key,
    fecha smalldatetime not null,
    hcv bit not null,
    hiv bit not null,
