@@ -28,8 +28,15 @@ insert into tipo_hemocomponente values ('plaquetas');
 insert into tipo_hemocomponente values ('plasma');
 go
 --select * from tipo_hemocomponente;
+
+--ESTADO
+insert into estado values ('pendiente');
+insert into estado values ('aceptado');
+insert into estado values ('rechazado');
+go
+--select * from estado
+
 -- Seteamos el formato de la fecha a día-mes-año 
---(SET DATEFORMAT overrides the implicit date format setting of SET LANGUAGE)
 set dateformat dmy;
 
 
