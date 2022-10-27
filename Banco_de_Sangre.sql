@@ -166,6 +166,10 @@ where YEAR(hc.fecha) = 2022
 GROUP by b.nombre , b.apellido,  hc.id_bioanalista
 order by count(hc.id_bioanalista) DESC;
 
+/*Muestra las solicitudes de transfución que siguen en espera*/
+select * from  solicitud_transfusion where id_solicitud_transfusion 
+not in(select distinct (id_solicitud_transfusion) from transfusion );
+
 ------------------------------------TRIGGER------------------------------------
 create or alter trigger	TR_donante_edad
 on donante
