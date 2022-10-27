@@ -144,3 +144,42 @@ alter table bolsa
 
 alter table solicitud_transfusion
 	add constraint DF__solicitud_transfusion_fecha DEFAULT CURRENT_TIMESTAMP FOR fecha;
+
+
+------------------------------------TRIGGER------------------------------------
+create or alter trigger	TR_donante_edad
+on donante
+instead of insert
+as
+	declare 
+			@id_donante int,
+			@dni char(8),
+			@nombre varchar(20),
+			@apellido varchar(20),
+			@id_sexo int,
+			@fecha_nacimiento date,
+			@telefono varchar(20),
+			@direccion varchar(40),
+			@tipo_sangre_id int,
+			@edad int;
+
+	select  @id_donante = id_donante,
+			@dni = dni,
+			@nombre = nombre,
+			@apellido = apellido,
+			@id_sexo = id_sexo,
+			@fecha_nacimiento = fecha_nacimiento,
+			@telefono = telefono,
+			@direccion = direccion,
+			@tipo_sangre_id = tipo_sangre_id 
+	from inserted;
+	
+	select @edad = (cast(convert(varchar(8),getdate(),112) as int) - cast(convert(varchar(8),@fecha_nacimiento,112) as int) ) / 10000
+
+	if	(@edad >= 18 and @edad <= 65)
+		insert into donante Values (@id_donante,@dni,@nombre,@apellido,@id_sexo,@fecha_nacimiento,@telefono,@direccion,@tipo_sangre_id)
+	else
+		begin
+			print ('ERROR: El donante debe tener entre 18 y 65 años de edad')
+		end
+go
