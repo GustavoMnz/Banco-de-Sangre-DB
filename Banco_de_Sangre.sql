@@ -170,6 +170,13 @@ order by count(hc.id_bioanalista) DESC;
 select * from  solicitud_transfusion where id_solicitud_transfusion 
 not in(select distinct (id_solicitud_transfusion) from transfusion );
 
+/*Muestra tipo de hemocomponente mas demandado*/
+
+SELECT TOP 1 descripcion as hemocomponente , count(descripcion) as cantidad
+from solicitud_transfusion
+inner join tipo_hemocomponente on(tipo_hemocomponente.id_hemocomponente = solicitud_transfusion.id_hemocomponente)
+group by descripcion order by cantidad DESC;
+
 ------------------------------------TRIGGER------------------------------------
 create or alter trigger	TR_donante_edad
 on donante
