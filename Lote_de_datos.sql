@@ -1,10 +1,13 @@
 -------------------
 -------------------
+use Banco_de_Sangre;
+go
 
 ---INGRESO DE DATOS
 --SEXO
 insert into sexo (descripcion)values ('F');
 insert into sexo (descripcion )values ('M');
+go
 ---select * from sexo;
 
 ---TIPO DE SANGRE
@@ -16,13 +19,14 @@ insert into tipo_sangre values ('AB','+');
 insert into tipo_sangre values ('AB','-');
 insert into tipo_sangre values ('O','+');
 insert into tipo_sangre values ('O','-');
-
+go
 --select * from tipo_sangre;
 
 ---TIPO DE HEMOCOMPONENTE
 insert into tipo_hemocomponente values ('globulos rojos');
 insert into tipo_hemocomponente values ('plaquetas');
 insert into tipo_hemocomponente values ('plasma');
+go
 --select * from tipo_hemocomponente;
 -- Seteamos el formato de la fecha a día-mes-año 
 --(SET DATEFORMAT overrides the implicit date format setting of SET LANGUAGE)
@@ -52,7 +56,7 @@ insert into donante (id_donante,dni,nombre,apellido,id_sexo,fecha_nacimiento,tel
 insert into donante (id_donante,dni,nombre,apellido,id_sexo,fecha_nacimiento,telefono,direccion,tipo_sangre_id) values (19,'14632323','Jose','Colorado',2,'1-1-2002','1664322054','Catamarca 456',7);
 insert into donante (id_donante,dni,nombre,apellido,id_sexo,fecha_nacimiento,telefono,direccion,tipo_sangre_id) values (20,'25454545','Mariela','Fernandez',1,'4-12-1970','80067632','Las heras 885',4);
 insert into donante (id_donante,dni,nombre,apellido,id_sexo,fecha_nacimiento,telefono,direccion,tipo_sangre_id) values (21,'12323232','Emanuel','Noruega',2,'24-4-1986','80705454','Colon 356',3);
-
+go
 --select * from donante;
 --delete from donante;
 
@@ -76,7 +80,7 @@ insert into paciente (dni,nombre,apellido,id_sexo,fecha_nacimiento,telefono,dire
 
 insert into paciente (dni,nombre,apellido,id_sexo,fecha_nacimiento,telefono,direccion,tipo_sangre_id) values ('22222222','Lupe','Gomez',2,'22-3-2000','2674027','Misiones 2313',7);
 insert into paciente (dni,nombre,apellido,id_sexo,fecha_nacimiento,telefono,direccion,tipo_sangre_id) values ('20000000','Claudia','Manolo',2,'21-5-2001','2324777','Palermo 5555',2);
-
+go
 --select * from paciente;
 --delete from paciente;
 
@@ -86,7 +90,7 @@ insert into bioanalista (id_bioanalista,dni,nombre,apellido,id_sexo,fecha_nacimi
 insert into bioanalista (id_bioanalista,dni,nombre,apellido,id_sexo,fecha_nacimiento,telefono,direccion) values (3,'39999432','Facundo','Martinez',2,'2/2/1993','20088777','La valle 1999');
 insert into bioanalista (id_bioanalista,dni,nombre,apellido,id_sexo,fecha_nacimiento,telefono,direccion) values (4,'33000032','Dario','Del Toro',2,'9/7/1980','122222222','Colombia 1933');
 insert into bioanalista (id_bioanalista,dni,nombre,apellido,id_sexo,fecha_nacimiento,telefono,direccion) values (5,'27777775','Valeria','Salvado',1,'14/6/1989','1447777','Formosa 2003');
-
+go
 --delete from bioanalista;
 --select * from bioanalista;
 
@@ -105,7 +109,7 @@ insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donan
 insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente) values (11,'2/10/2021 14:01','57.45','10/10/2021 14:01',11,2);
 insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente) values (12,'14/9/2021 18:11','67.43','23/9/2021 18:11',12,2);
 insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente) values (13,'11/7/2022 13:35','59.23','11/7/2025 13:35',13,3);
-
+go
 --select * from bolsa;
 --delete from bolsa;
 
@@ -123,7 +127,7 @@ insert into pruebas_donante (id_prueba,fecha, hcv,hiv,sifilis,ahbc,htlv,chagas,h
 insert into pruebas_donante (id_prueba,fecha, hcv,hiv,sifilis,ahbc,htlv,chagas,hbsag,t_prueba,id_bolsa,id_bioanalista) values (11,'3/10/2021 14:01','false','false','false','false','false','false','false','false',11,3);
 insert into pruebas_donante (id_prueba,fecha, hcv,hiv,sifilis,ahbc,htlv,chagas,hbsag,t_prueba,id_bolsa,id_bioanalista) values (12,'15/9/2021 18:11','false','false','false','false','false','false','false','true',12,1);
 insert into pruebas_donante (id_prueba,fecha, hcv,hiv,sifilis,ahbc,htlv,chagas,hbsag,t_prueba,id_bolsa,id_bioanalista) values (13,'12/7/2022 13:35','false','false','false','false','false','false','false','false',13,2);
-
+go
 
 --delete from pruebas_donante;
 --select * from pruebas_donante;
@@ -143,7 +147,7 @@ insert into solicitud_transfusion (id_solicitud_transfusion,fecha, motivo, canti
 insert into solicitud_transfusion (id_solicitud_transfusion,fecha, motivo, cantidad, paciente_dni, id_hemocomponente) values (12,'10/9/2021 11:23','transfusion plaquetas','53.00','42222222',2);
 insert into solicitud_transfusion (id_solicitud_transfusion,fecha, motivo, cantidad, paciente_dni, id_hemocomponente) values (13,'5/7/2021 19:45','transfusion globulos rojos','65.00','33347790',1);
 insert into solicitud_transfusion (id_solicitud_transfusion,fecha, motivo, cantidad, paciente_dni, id_hemocomponente) values (14,'9/4/2022 20:00','transfusion globulos rojos','55.00','42000000',1);
-
+go
 --delete from solicitud_transfusion;
 --select * from solicitud_transfusion;
 
@@ -157,8 +161,6 @@ insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra
 insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (7,'19/6/2022 11:20','17/6/2022 12:55','picazon',null,7,9);
 insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (8,'3/11/2022 11:30','1/11/2022 12:45',null,null,8,10);
 insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (9,'27/9/2022 21:30','26/9/2022 16:25',null,null,9,11);
-
+go
 --delete from transfusion;
 --select * from transfusion;
---CONSTRAINT CK__alumno_fecha_nac CHECK (FORMAT(fecha_nac,'yyyyMMdd') <= FORMAT(GETDATE(),'yyyyMMdd'))--la fecha de nacimiento tiene que ser anterior a la fecha actual
-
