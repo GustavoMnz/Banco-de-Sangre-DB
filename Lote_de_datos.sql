@@ -149,14 +149,14 @@ insert into solicitud_transfusion (id_solicitud_transfusion,fecha, motivo, canti
 
 -----TRANSFUSION
 insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (1,'12/7/2021 11:30','11/8/2021 12:45',null,null,1,1);
-insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (2,'10/7/2022 11:50','9/7/2022 12:00',null,'filtrado',2,1);
-insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (3,'30/8/2022 10:00','29/8/2022 9:45',null,null,3,1);
-insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (4,'16/4/2022 15:30','15/4/2022 14:20',null,null,4,1);
-insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (5,'20/8/2021 11:30','19/8/2021 12:45',null,'irradiado',5,1);
-insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (6,'20/5/2022 10:30','19/5/2022 19:45','fiebre',null,6,1);
-insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (7,'19/6/2022 11:20','17/6/2022 12:55','picazon',null,7,1);
-insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (8,'3/11/2022 11:30','1/11/2022 12:45',null,null,8,1);
-insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (9,'27/9/2022 21:30','26/9/2022 16:25',null,null,9,1);
+insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (2,'10/7/2022 11:50','9/7/2022 12:00',null,'filtrado',2,3);
+insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (3,'30/8/2022 10:00','29/8/2022 9:45',null,null,3,4);
+insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (4,'16/4/2022 15:30','15/4/2022 14:20',null,null,4,5);
+insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (5,'20/8/2021 11:30','19/8/2021 12:45',null,'irradiado',5,6);
+insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (6,'20/5/2022 10:30','19/5/2022 19:45','fiebre',null,6,7);
+insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (7,'19/6/2022 11:20','17/6/2022 12:55','picazon',null,7,9);
+insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (8,'3/11/2022 11:30','1/11/2022 12:45',null,null,8,10);
+insert into transfusion(id_transfusion,fecha_transfusion,fecha_recepcion,muestra_reaccion,modificacion,id_solicitud_transfusion,id_bolsa) values (9,'27/9/2022 21:30','26/9/2022 16:25',null,null,9,11);
 
 --delete from transfusion;
 --select * from transfusion;
