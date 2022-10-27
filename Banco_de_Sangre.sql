@@ -116,6 +116,7 @@ create table transfusion
 (
 	id_transfusion int primary key,
 	fecha_transfusion smalldatetime not null,
+	fecha_recepcion smalldatetime not null,
 	muestra_reaccion varchar(40),
 	modificacion varchar(20),
 	id_solicitud_transfusion int not null,
@@ -178,6 +179,8 @@ inner join tipo_hemocomponente on(tipo_hemocomponente.id_hemocomponente = solici
 group by descripcion order by cantidad DESC;
 
 ------------------------------------TRIGGER------------------------------------
+--verifica que la edad del donante se encuentra dentro de los valores permitidos antes de realizar la inserción
+go
 create or alter trigger	TR_donante_edad
 on donante
 instead of insert
