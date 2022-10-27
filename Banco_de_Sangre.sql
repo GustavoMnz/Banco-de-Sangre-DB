@@ -156,6 +156,15 @@ right join paciente on(solicitud_transfusion.paciente_dni = paciente.dni)
 inner join tipo_sangre on(tipo_sangre.tipo_sangre_id = paciente.tipo_sangre_id)
 group by grupo_sanguineo, factor_rh order by cantidad DESC;
 
+-- Muestra bioanalista  que mas analisis hicieron en el año 2022 (Que mas trabajo)
+SELECT b.nombre , b.apellido,
+count(hc.id_bioanalista) as 'cantidad de analisis'
+from pruebas_donante as hc
+inner join bioanalista as b on hc.id_bioanalista = b.id_bioanalista
+inner join bolsa as bolsa on hc.id_bolsa = bolsa.id_bolsa
+where YEAR(hc.fecha) = 2022
+GROUP by b.nombre , b.apellido,  hc.id_bioanalista
+order by count(hc.id_bioanalista) DESC;
 
 ------------------------------------TRIGGER------------------------------------
 create or alter trigger	TR_donante_edad
