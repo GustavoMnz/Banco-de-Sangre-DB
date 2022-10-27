@@ -146,6 +146,17 @@ alter table solicitud_transfusion
 	add constraint DF__solicitud_transfusion_fecha DEFAULT CURRENT_TIMESTAMP FOR fecha;
 
 
+----------------------------CONSULTAS-------------------------------------
+
+--MUESTRA TIPO DE SANGRE MAS DEMANDADO
+
+SELECT TOP 1 grupo_sanguineo as tiposangre , factor_rh as factor, count(grupo_sanguineo) as cantidad
+from solicitud_transfusion
+right join paciente on(solicitud_transfusion.paciente_dni = paciente.dni)
+inner join tipo_sangre on(tipo_sangre.tipo_sangre_id = paciente.tipo_sangre_id)
+group by grupo_sanguineo, factor_rh order by cantidad DESC;
+
+
 ------------------------------------TRIGGER------------------------------------
 create or alter trigger	TR_donante_edad
 on donante
