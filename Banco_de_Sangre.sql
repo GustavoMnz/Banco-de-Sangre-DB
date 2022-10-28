@@ -140,31 +140,31 @@ go
 
 alter table paciente
 	add constraint CK__paciente_fecha_nacimiento CHECK (fecha_nacimiento <= CURRENT_TIMESTAMP);
-
+go
 alter table bioanalista
 	add constraint CK__bioanalista_fecha_nacimiento CHECK (fecha_nacimiento <= CURRENT_TIMESTAMP);
-
+go
 alter table bolsa
 	add constraint DF__bolsa__fecha_extraccion DEFAULT CURRENT_TIMESTAMP FOR fecha_extraccion;
-
+go
 alter table bolsa
 	add constraint CK__bolsa_cantidad CHECK (cantidad >= 50 AND cantidad<= 300);
-
+go
 alter table bolsa
 	add constraint DF__bolsa__fecha_vencimiento DEFAULT NULL FOR fecha_vencimiento;
-	
+go	
 alter table bolsa
 	add constraint DF__bolsa_estado DEFAULT 1 FOR id_estado;
-	
+go	
 alter table pruebas_donante
 	add constraint DF__pruebas_donante_fecha DEFAULT CURRENT_TIMESTAMP FOR fecha;
-
+go
 alter table solicitud_transfusion
 	add constraint DF__solicitud_transfusion_fecha DEFAULT CURRENT_TIMESTAMP FOR fecha;
-	
+go	
 alter table solicitud_transfusion
 	add constraint DF__solicitud_transfusion_estado DEFAULT 1 FOR id_estado;
-
+go
 
 ----------------------------CONSULTAS-------------------------------------
 
@@ -175,6 +175,7 @@ from solicitud_transfusion
 right join paciente on(solicitud_transfusion.paciente_dni = paciente.dni)
 inner join tipo_sangre on(tipo_sangre.tipo_sangre_id = paciente.tipo_sangre_id)
 group by grupo_sanguineo, factor_rh order by cantidad DESC;
+GO
 
 -- Muestra bioanalista  que mas analisis hicieron en el año 2022 (Que mas trabajo)
 SELECT b.nombre , b.apellido,
@@ -185,10 +186,12 @@ inner join bolsa as bolsa on hc.id_bolsa = bolsa.id_bolsa
 where YEAR(hc.fecha) = 2022
 GROUP by b.nombre , b.apellido,  hc.id_bioanalista
 order by count(hc.id_bioanalista) DESC;
+GO
 
 /*Muestra las solicitudes de transfución que siguen en espera*/
 select * from  solicitud_transfusion where id_solicitud_transfusion 
 not in(select distinct (id_solicitud_transfusion) from transfusion );
+GO
 
 /*Muestra tipo de hemocomponente mas demandado*/
 
@@ -196,13 +199,87 @@ SELECT TOP 1 descripcion as hemocomponente , count(descripcion) as cantidad
 from solicitud_transfusion
 inner join tipo_hemocomponente on(tipo_hemocomponente.id_hemocomponente = solicitud_transfusion.id_hemocomponente)
 group by descripcion order by cantidad DESC;
+GO
 
-------------------------------------TRIGGER------------------------------------
+----------------------------FUNCIONES----------------------------
+--retorna el tipo de componente (id_hemocomponente) de una bolsa a partir de la prueba realizada (id_prueba)
+
+CREATE FUNCTION GetIdComponente (@idPrueba int)
+RETURNS INT AS
+BEGIN
+	--declaramos la variable que contendra el id del componente
+	DECLARE	 @idComponente int
+	--selecciona el tipo de hemocomponente pasando como parametro el id de la prueba y lo almacena en la variable @idcomponente
+	SELECT @idComponente = th.id_hemocomponente 
+	FROM pruebas_donante as pd
+		INNER JOIN bolsa as b
+			ON pd.id_bolsa = b.id_bolsa
+		INNER JOIN	tipo_hemocomponente as th
+			ON b.id_hemocomponente = th.id_hemocomponente
+	WHERE pd.id_prueba = @idPrueba
+
+RETURN @idComponente
+
+END
+GO
+------------------------------------TRIGGERS------------------------------------
+
+--verifica si la bolsa contiene algun tipo de enfermedad, si no contiene ninuguna enfermedad la fecha de vencimiento de la bolsa segun el componente que contiene y un estado de aceptado (2)
+--si contiene alguna enfermedad se actualiza el balor de id_estado de la bolsa a rechazado (3)
+
+CREATE OR ALTER TRIGGER TR_bolsa_fechCaducidad
+ON pruebas_donante
+FOR INSERT	--se dispara al momento de realizar un insert en la tabla pruebas_donante
+AS
+	DECLARE @id_prueba int,
+			@hcv bit,
+			@hiv bit,
+			@sifilis bit,
+			@ahbc bit,
+			@htlv bit,
+			@chagas bit,
+			@hbsag bit,
+			@t_prueba bit,
+			@id_bolsa int
+	SELECT  
+			@id_prueba = id_prueba,
+			@hcv = hcv,
+			@hiv = hiv,
+			@sifilis = sifilis,
+			@ahbc = ahbc,
+			@htlv = htlv,
+			@chagas = chagas,
+			@hbsag = hbsag,
+			@t_prueba = t_prueba,
+			@id_bolsa = id_bolsa
+
+	FROM inserted; --desde el registro a insertar
+	
+
+--	condicion si las prueba es exitosa asignar a bolsa estado = aceptado y una fecha de caducidad dependiendo del hemocomponente
+	IF (@hcv=0 AND @hiv=0 AND @sifilis=0 AND @ahbc=0 AND @htlv=0 AND @chagas=0 AND @hbsag=0 AND @t_prueba=0) --si no se encuentra ninguna enfermedad
+		BEGIN
+			DECLARE @idcomponente int;--declaramos una variable para asignar el id
+			SELECT @idcomponente = dbo.GetIdComponente(@id_prueba); --llamamos a la funcion para que nos retorne el id del componente y lo guardamos en la variable
+			UPDATE bolsa SET id_estado=2 , fecha_vencimiento =		--estado 2 = aceptado
+				CASE
+					WHEN @idcomponente = 1 THEN DATEADD(DAY,42,fecha_extraccion)--agrega 42 dias a partir de la fecha de extraccion si el componente es 'globulos rojos'
+					WHEN @idcomponente = 2 THEN DATEADD(DAY,7,fecha_extraccion)--agrega 7 dias a partir de la fecha de extraccion si el componente es 'plaquetas'
+					WHEN @idcomponente = 3 THEN DATEADD(YEAR,2,fecha_extraccion)--agrega 2 años a partir de la fecha de extraccion si el componente es 'plasma'
+				END
+			WHERE id_bolsa=@id_bolsa
+		END
+		
+	ELSE --si la bolsa contiene enfermedades se le asigna el estado rechazado
+		UPDATE bolsa SET  id_estado=3 --3 = rechazado
+		WHERE id_bolsa=@id_bolsa
+GO
+
 --verifica que la edad del donante se encuentra dentro de los valores permitidos antes de realizar la inserción
-go
+
 create or alter trigger	TR_donante_edad
 on donante
-instead of insert
+instead of insert	--se dispara al momento que se realiza un insert sin que este se concrete
 as
 	declare 
 			@id_donante int,
