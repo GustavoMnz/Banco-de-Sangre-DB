@@ -155,6 +155,9 @@ alter table bolsa
 	
 alter table bolsa
 	add constraint DF__bolsa_estado DEFAULT 1 FOR id_estado;
+	
+alter table pruebas_donante
+	add constraint DF__pruebas_donante_fecha DEFAULT CURRENT_TIMESTAMP FOR fecha;
 
 alter table solicitud_transfusion
 	add constraint DF__solicitud_transfusion_fecha DEFAULT CURRENT_TIMESTAMP FOR fecha;
