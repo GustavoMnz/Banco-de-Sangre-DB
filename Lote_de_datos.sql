@@ -103,19 +103,19 @@ go
 
 ----BOLSA
 --31/12/2008 09:01 dd-mm-aaaa hh:mm
-insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente) values (1,'15/7/2021 20:30','75.20','22/7/2021 15:45',1,2);
-insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente) values (2,'5/7/2022 10:30','55.60','10/7/2022 10:30',2,2);
-insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente) values (3,'3/7/2022 9:00','73.20','7/8/2022 9:00',3,1);
-insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente) values (4,'6/3/2022 20:20','64.00','12/3/2022 20:20',4,2);
-insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente) values (5,'15/8/2021 12:40','65.33','15/8/2025 12:40',5,3);
-insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente) values (6,'22/5/2022 16:20','75.34','22/5/2025 16:20',6,3);
-insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente) values (7,'23/6/2022 22:34','75.20','23/6/2025 22:34',7,3);
-insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente) values (8,'30/10/2022 23:32','57.40','30/11/2022 23:32',8,1);
-insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente) values (9,'20/9/2022 12:02','73.26','20/10/2022 12:02',9,1);
-insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente) values (10,'5/2/2022 12:04','65.34','10/3/2022 12:04',10,1);
-insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente) values (11,'2/10/2021 14:01','57.45','10/10/2021 14:01',11,2);
-insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente) values (12,'14/9/2021 18:11','67.43','23/9/2021 18:11',12,2);
-insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente) values (13,'11/7/2022 13:35','59.23','11/7/2025 13:35',13,3);
+insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente,id_estado) values (1,'15/7/2021 20:30','75.20',default,1,2,default);
+insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente,id_estado) values (2,'5/7/2022 10:30','55.60',default,2,2,default);
+insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente,id_estado) values (3,'3/7/2022 9:00','73.20',default,3,1,default);
+insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente,id_estado) values (4,'6/3/2022 20:20','64.00',default,4,2,default);
+insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente,id_estado) values (5,'15/8/2021 12:40','65.33',default,5,3,default);
+insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente,id_estado) values (6,'22/5/2022 16:20','75.34',default,6,3,default);
+insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente,id_estado) values (7,'23/6/2022 22:34','75.20',default,7,3,default);
+insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente,id_estado) values (8,'30/10/2022 23:32','57.40',default,8,1,default);
+insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente,id_estado) values (9,'20/9/2022 12:02','73.26',default,9,1,default);
+insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente,id_estado) values (10,'5/2/2022 12:04','65.34',default,10,1,default);
+insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente,id_estado) values (11,'2/10/2021 14:01','57.45',default,11,2,default);
+insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente,id_estado) values (12,'14/9/2021 18:11','67.43',default,12,2,default);
+insert into bolsa (id_bolsa,fecha_extraccion,cantidad,fecha_vencimiento,id_donante,id_hemocomponente,id_estado) values (13,'11/7/2022 13:35','59.23',default,13,3,default);
 go
 --select * from bolsa;
 --delete from bolsa;
