@@ -81,7 +81,7 @@ create table bolsa
 	id_bolsa int primary key,
 	fecha_extraccion smalldatetime not null,
 	cantidad numeric(5,2) not null,
-	fecha_vencimiento smalldatetime not null,
+	fecha_vencimiento smalldatetime,
 	id_donante int not null,
 	id_hemocomponente int not null,
 	id_estado int not null,
