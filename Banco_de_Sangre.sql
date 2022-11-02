@@ -249,6 +249,19 @@ inner join donante on donante_bioanalista.id_donante = donante.id_donante;
 
 GO
 
+/*--esta vista nos permite ver los pacientes que tienen al menos una solicitud de transfusión*/
+--VISTA pacientes
+create view Pacientes with encryption
+as
+select solicitud_transfusion.paciente_dni ,solicitud_transfusion.id_estado from solicitud_transfusion
+inner join paciente on solicitud_transfusion.paciente_dni = paciente.dni
+--SE COMPRUEBA QUE FUNCIONE
+select * from Pacientes
+---drop view Pacientes
+--Consulta sobre la vista Mascotas
+select paciente.nombre as 'nombre de paciente', estado.descripcion as 'estado de solicitud de transfusion' from Pacientes
+inner join estado on Pacientes.id_estado=estado.id_estado
+inner join paciente on Pacientes.paciente_dni=paciente.dni;
 
 ------------------------------------TRIGGERS------------------------------------
 
