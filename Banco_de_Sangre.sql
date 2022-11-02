@@ -222,6 +222,34 @@ RETURN @idComponente
 
 END
 GO
+------------------------------------VISTAS--------------------------------------
+----
+--ESTA VISTA NOS PERMITE PODER VISUALIZAR LOS DATOS DE DOS TABLAS SIN ACCEDER
+--DIRECTAMENTE A ELLAS SOLO MOSTRANDO MUY DETERMINADAS.
+--EN ESTE CASO ACCEDE A LAS TABLAS donante Y bioanalista, MOSTRANDO
+--VISTAS donante_bioanalista
+drop view donante_bioanalista
+create view donante_bioanalista with encryption
+as
+select
+donante.id_donante, donante.nombre, bioanalista.nombre as nombrebio, bioanalista.id_bioanalista
+from donante,bioanalista;
+select * from donante_bioanalista;
+--Consulta sobre la vista clientes_mascota
+select bioanalista.nombre as 'nombre bioanalista',donante.nombre as
+'nombre donante',pruebas_donante.id_bioanalista as 'ID DEL bioanalista',
+pruebas_donante.id_bolsa as 'id de bolsa'
+from donante_bioanalista
+inner join pruebas_donante on
+donante_bioanalista.id_donante=pruebas_donante.id_bolsa and
+donante_bioanalista.id_bioanalista=pruebas_donante.id_bioanalista
+inner join bioanalista on donante_bioanalista.id_bioanalista =
+bioanalista.id_bioanalista
+inner join donante on donante_bioanalista.id_donante = donante.id_donante;
+
+GO
+
+
 ------------------------------------TRIGGERS------------------------------------
 
 --verifica si la bolsa contiene algun tipo de enfermedad, si no contiene ninuguna enfermedad la fecha de vencimiento de la bolsa segun el componente que contiene y un estado de aceptado (2)
