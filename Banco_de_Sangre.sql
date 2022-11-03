@@ -262,13 +262,13 @@ select * from Pacientes
 select paciente.nombre as 'nombre de paciente', estado.descripcion as 'estado de solicitud de transfusion' from Pacientes
 inner join estado on Pacientes.id_estado=estado.id_estado
 inner join paciente on Pacientes.paciente_dni=paciente.dni;
-
+go
 ------------------------------------TRIGGERS------------------------------------
 
 --verifica si la bolsa contiene algun tipo de enfermedad, si no contiene ninuguna enfermedad la fecha de vencimiento de la bolsa segun el componente que contiene y un estado de aceptado (2)
 --si contiene alguna enfermedad se actualiza el balor de id_estado de la bolsa a rechazado (3)
 
-CREATE OR ALTER TRIGGER TR_bolsa_fechCaducidad
+CREATE TRIGGER TR_bolsa_fechCaducidad
 ON pruebas_donante
 FOR INSERT	--se dispara al momento de realizar un insert en la tabla pruebas_donante
 AS
@@ -318,7 +318,7 @@ GO
 
 --verifica que la edad del donante se encuentra dentro de los valores permitidos antes de realizar la inserción
 
-create or alter trigger	TR_donante_edad
+create trigger TR_donante_edad
 on donante
 instead of insert	--se dispara al momento que se realiza un insert sin que este se concrete
 as
