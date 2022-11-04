@@ -228,40 +228,40 @@ GO
 --DIRECTAMENTE A ELLAS SOLO MOSTRANDO MUY DETERMINADAS.
 --EN ESTE CASO ACCEDE A LAS TABLAS donante Y bioanalista, MOSTRANDO
 --VISTAS donante_bioanalista
-drop view donante_bioanalista
+--drop view donante_bioanalista
 create view donante_bioanalista with encryption
 as
-select
-donante.id_donante, donante.nombre, bioanalista.nombre as nombrebio, bioanalista.id_bioanalista
-from donante,bioanalista;
+select	donante.id_donante, donante.nombre, bioanalista.nombre as nombrebio, bioanalista.id_bioanalista
+	from donante,bioanalista;
+go
 select * from donante_bioanalista;
 --Consulta sobre la vista clientes_mascota
-select bioanalista.nombre as 'nombre bioanalista',donante.nombre as
-'nombre donante',pruebas_donante.id_bioanalista as 'ID DEL bioanalista',
-pruebas_donante.id_bolsa as 'id de bolsa'
+select bioanalista.nombre as 'nombre bioanalista',
+	donante.nombre as'nombre donante',
+	pruebas_donante.id_bioanalista as 'ID DEL bioanalista',
+	pruebas_donante.id_bolsa as 'id de bolsa'
 from donante_bioanalista
-inner join pruebas_donante on
-donante_bioanalista.id_donante=pruebas_donante.id_bolsa and
-donante_bioanalista.id_bioanalista=pruebas_donante.id_bioanalista
-inner join bioanalista on donante_bioanalista.id_bioanalista =
-bioanalista.id_bioanalista
-inner join donante on donante_bioanalista.id_donante = donante.id_donante;
+	inner join pruebas_donante
+		on donante_bioanalista.id_donante=pruebas_donante.id_bolsa and donante_bioanalista.id_bioanalista=pruebas_donante.id_bioanalista
+	inner join bioanalista on donante_bioanalista.id_bioanalista = bioanalista.id_bioanalista
+	inner join donante on donante_bioanalista.id_donante = donante.id_donante;
 
-GO
+go
 
 /*--esta vista nos permite ver los pacientes que tienen al menos una solicitud de transfusión*/
 --VISTA pacientes
 create view Pacientes with encryption
 as
 select solicitud_transfusion.paciente_dni ,solicitud_transfusion.id_estado from solicitud_transfusion
-inner join paciente on solicitud_transfusion.paciente_dni = paciente.dni
+	inner join paciente on solicitud_transfusion.paciente_dni = paciente.dni
+go
 --SE COMPRUEBA QUE FUNCIONE
 select * from Pacientes
 ---drop view Pacientes
---Consulta sobre la vista Mascotas
+
 select paciente.nombre as 'nombre de paciente', estado.descripcion as 'estado de solicitud de transfusion' from Pacientes
-inner join estado on Pacientes.id_estado=estado.id_estado
-inner join paciente on Pacientes.paciente_dni=paciente.dni;
+	inner join estado on Pacientes.id_estado=estado.id_estado
+	inner join paciente on Pacientes.paciente_dni=paciente.dni;
 go
 ------------------------------------TRIGGERS------------------------------------
 
