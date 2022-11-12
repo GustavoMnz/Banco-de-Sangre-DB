@@ -223,6 +223,15 @@ inner join tipo_hemocomponente on(tipo_hemocomponente.id_hemocomponente = solici
 group by descripcion order by cantidad DESC;
 GO
 
+---PACIENTES QUE MOSTRARON REACCION----
+
+SELECT  paciente.nombre, paciente.dni, transfusion.muestra_reaccion from transfusion 
+inner join solicitud_transfusion on solicitud_transfusion.id_solicitud_transfusion=transfusion.id_solicitud_transfusion
+inner join paciente on paciente.dni=solicitud_transfusion.paciente_dni
+where muestra_reaccion is not null group by paciente.nombre, paciente.dni, transfusion.muestra_reaccion;
+
+go
+
 ----------------------------FUNCIONES----------------------------
 --retorna el tipo de componente (id_hemocomponente) de una bolsa a partir de la prueba realizada (id_prueba)
 
