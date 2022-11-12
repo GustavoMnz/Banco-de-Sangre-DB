@@ -235,7 +235,7 @@ select	donante.id_donante, donante.nombre, bioanalista.nombre as nombrebio, bioa
 	from donante,bioanalista;
 go
 select * from donante_bioanalista;
---Consulta sobre la vista clientes_mascota
+--Consulta sobre la vista 
 select bioanalista.nombre as 'nombre bioanalista',
 	donante.nombre as'nombre donante',
 	pruebas_donante.id_bioanalista as 'ID DEL bioanalista',
