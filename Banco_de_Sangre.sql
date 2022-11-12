@@ -232,6 +232,12 @@ where muestra_reaccion is not null group by paciente.nombre, paciente.dni, trans
 
 go
 
+-- Mostrar catidad de donantes por tipo de sangre
+SELECT tipo_sangre.grupo_sanguineo, tipo_sangre.factor_rh , COUNT(bolsa.id_donante) as 'cantidad' from bolsa
+inner join donante  on donante.id_donante = bolsa.id_donante
+inner join tipo_sangre on tipo_sangre.tipo_sangre_id = donante.tipo_sangre_id
+group by tipo_sangre.grupo_sanguineo,tipo_sangre.factor_rh
+
 ----------------------------FUNCIONES----------------------------
 --retorna el tipo de componente (id_hemocomponente) de una bolsa a partir de la prueba realizada (id_prueba)
 
