@@ -137,6 +137,8 @@ create table transfusion
 go
 
 ------------------------------------RESTRICCIONES------------------------------------
+ALTER table transfusion
+add constraint CK_fecha_tf check(fecha_recepcion <= getdate())
 
 alter table paciente
 	add constraint CK__paciente_fecha_nacimiento CHECK (fecha_nacimiento <= CURRENT_TIMESTAMP);
@@ -165,6 +167,26 @@ go
 alter table solicitud_transfusion
 	add constraint DF__solicitud_transfusion_estado DEFAULT 1 FOR id_estado;
 go
+----------------------------------------------------------
+----------------- TRANSACCIONES ----------------------------------------------------
+------------------------------------
+-- Modificacion de una transfusion, fecha y diagnostico
+begin tran --> Inicio de la transaccion
+update transfusion set muestra_reaccion = 'texto ejemplo'
+where id_transfusion = 1
+------------------------> fallo aproposito
+update transfusion set fecha_recepcion = '2022-12-10'
+where id_transfusion = 1
+if @@ERROR <> 0 --> @ERROR es una variable del motor que devuelve un valor distinto
+--de 0 cuando hay un error de restriccion
+BEGIN
+ROLLBACK --> Lo que hace el rollback es volver a un estado inicial del que
+--estaba
+END
+-- Para verificar
+SELECT * from transfusion tf;
+------------------------------------------------------------------------------------
+----------------------------------------
 
 ----------------------------CONSULTAS-------------------------------------
 
