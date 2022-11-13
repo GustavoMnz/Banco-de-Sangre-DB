@@ -237,7 +237,7 @@ SELECT tipo_sangre.grupo_sanguineo, tipo_sangre.factor_rh , COUNT(bolsa.id_donan
 inner join donante  on donante.id_donante = bolsa.id_donante
 inner join tipo_sangre on tipo_sangre.tipo_sangre_id = donante.tipo_sangre_id
 group by tipo_sangre.grupo_sanguineo,tipo_sangre.factor_rh
-
+go
 -- Muestra las bolsas que estan disponible
 SELECT bolsa.id_bolsa, bolsa.fecha_extraccion, bolsa.cantidad, bolsa.fecha_vencimiento, bolsa.id_hemocomponente, 
 donante.tipo_sangre_id from
@@ -246,7 +246,7 @@ right join bolsa on transfusion.id_bolsa = bolsa.id_bolsa
 inner join donante on donante.id_donante= bolsa.id_donante 
 inner join tipo_sangre on tipo_sangre.tipo_sangre_id=donante.tipo_sangre_id
 where transfusion.id_bolsa is NULL
-
+go
 
 ----------------------------FUNCIONES----------------------------
 --retorna el tipo de componente (id_hemocomponente) de una bolsa a partir de la prueba realizada (id_prueba)
