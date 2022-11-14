@@ -6,13 +6,15 @@ GO
 --ASIGNAMOS PERMISOS
 GRANT SELECT ON [dbo].[donante_bioanalista] TO [Bioanalista] --damos acceso a la vista donante_bioanalista al nuevo rol creado
 GRANT SELECT ON [dbo].[Pacientes] TO [Bioanalista]----damos acceso a la vista pacientes al nuevo rol creado
---GRANT EXECUTE ON [dbo].[pa_insert_pruebas_donante] TO [bioanalista]--damos acceso para ejecutar el procedimiento almacenado 'pa_insert_pruebas_donante'
+GRANT EXECUTE ON [dbo].[pa_ingresar_Pruebas_Donantes] TO [bioanalista]--damos acceso para ejecutar el procedimiento almacenado 'pa_ingresar_Pruebas_Donantes'
+GRANT EXECUTE ON [dbo].[pa_eliminar_pruebas_donante] TO [bioanalista]--damos acceso para ejecutar el procedimiento almacenado 'pa_eliminar_pruebas_donante'
+
 GO
 
 --CREAMOS LOGIN Y USUARIO, LUEGO LE ASIGNAMOS EL ROL CREADO ANTERIORMENTE
 USE master
 GO
-CREATE LOGIN [maria] WITH PASSWORD=N'123', DEFAULT_DATABASE=[master], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF --creamos un inicio de sesion y le asignamos contraseña
+CREATE LOGIN [maria] WITH PASSWORD=N'123', DEFAULT_DATABASE=[master], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF --creamos un inicio de sesion y le asignamos contraseÃ±a
 GO
 USE Banco_de_Sangre
 GO
