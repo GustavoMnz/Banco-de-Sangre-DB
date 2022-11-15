@@ -181,7 +181,7 @@ Sexo:
 |Campo|Tipo|Longitud|Descripción|
 | :- | :- | :- | :- |
 |*id\_sexo*|int|4|Número identificatorio del tipo de sexo.|
-|descripcion|char|1|[F | M]|
+|descripcion|char|1|[F , M]|
 
 Tipo\_sangre:
 
@@ -189,8 +189,8 @@ Tipo\_sangre:
 |Campo|Tipo|Longitud|Descripción|
 | :- | :- | :- | :- |
 |*tipo\_sangre\_id*|int|1|Número identificatorio del tipo de sangre.|
-|grupo\_sanguineo|char|2|[ A | B | AB | O ]|
-|factor\_rh|char|1|[ + | - ]|
+|grupo\_sanguineo|char|2|[ A , B , AB , O ]|
+|factor\_rh|char|1|[ + , - ]|
 
 
 Solicitud\_transfusion:
@@ -202,7 +202,7 @@ Solicitud\_transfusion:
 |fecha|smalldatetime|4|Fecha y hora en la que se realiza la solicitud de transfusión.|
 |motivo|varchar|40|Motivo de la transfusión|
 |cantidad|numeric|5|Cantidad en mililitros del hemocomponente solicitado.|
-|estado|varchar|25|[aceptado|rechazado|pendiente]|
+|estado|varchar|25|[aceptado,rechazado,pendiente]|
 
 Transfusion:
 
@@ -219,13 +219,13 @@ Tipo\_hemocomponente:
 |Campo|Tipo|Longitud|Descripción|
 | :- | :- | :- | :- |
 |*id\_hemocomponente*|int|4|Número identificatorio del hemocomponente.|
-|descripcion|varchar|15|[Glóbulos rojos | plaquetas | plasma]|
+|descripcion|varchar|15|[Glóbulos rojos , plaquetas , plasma]|
 Estado:
 
 |Campo|Tipo|Longitud|Descripción|
 | :- | :- | :- | :- |
 |*id\_estado*|int|1|Número identificatorio del estado.|
-|descripcion|varchar|25|[Pendiente | Aceptado| Rechazado]|
+|descripcion|varchar|25|[Pendiente , Aceptado , Rechazado]|
 #
 Relaciones:
 
@@ -381,7 +381,7 @@ Restricciones:
 |paciente|CK\_paciente\_fecha\_nacimiento|check|fecha\_nacimiento <= getdate()|
 |pruebas\_donante|UQ\_\_pruebas\_donante\_bolsa|unique|unique (id\_bolsa)|
 |pruebas\_donante|DF\_pruebas\_donante\_fecha|default|current\_timestamp for fecha|
-|sexo|CK\_sexo\_descripción|check|` `descripcion in ('F','M')|
+|sexo|CK\_sexo\_descripción|check|descripcion in ('F','M')|
 |solicitud\_transfusion|DF\_\_solicitud\_transfusion\_fecha|default|current\_timestamp for fecha|
 |solicitud\_transfusion|DF\_\_solicitud\_transfusion\_estado|default|1 for id\_estado|
 |transfusion|CK\_fecha\_tf|check|fecha\_recepcion <= getdate()|
