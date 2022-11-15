@@ -44,6 +44,11 @@ Al crear un procedimiento almacenado, las instrucciones que contiene se analizan
 - Reutilización del código: si el código es redundante en cualquier operación de base de datos se realiza la encapsulación de procedimientos.
 - Reducen el tráfico de red: en vez de enviar muchas instrucciones, los usuarios realizan operaciones enviando una única instrucción, lo cual disminuye el número de solicitudes entre el cliente y el servidor
 
+**Diferencia entre funciones**
+
+- Una diferencia es que las funciones siempre retornan un valor, mientras que un procedimiento almacenado puede que retorne un valor o puede que no lo haga.
+- Otra diferencia es que los procedimientos almacenados pueden ser invocados desde el entorno de desarrollo.
+
 DISPARADORES (Triggers):
 
 Un trigger(disparador) es un tipo de procedimiento almacenado, consiste en una serie de reglas predefinidas que están asociadas a una tabla, y son aplicadas en la realización de determinadas operaciones. Si se intenta modificar (*agregar, actualizar o eliminar*) datos de una tabla en la que se definió un disparador para alguna de estas acciones (inserción, actualización y eliminación), el disparador se ejecuta (se dispara) en forma automática.
