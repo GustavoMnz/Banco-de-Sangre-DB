@@ -269,6 +269,22 @@ RETURN @idComponente
 
 END
 GO
+
+CREATE FUNCTION cantidadBolsaEstado (@idEstado int)
+RETURNS INT AS
+
+BEGIN
+	--declaramos la variable que contendra la catidad de bolsas
+	DECLARE	 @cantidadBolsa int	        
+	--cargar la cantidad de bolsa de el estado pasado por parametro
+	 set @cantidadBolsa= (select COUNT(@idEstado)
+                         from bolsa)
+-- retorna la cantidad de bolsas
+RETURN @cantidadBolsa
+
+END
+--select dbo.cantidadBolsaEstado(1);
+
 ------------------------------------VISTAS--------------------------------------
 ----
 --ESTA VISTA NOS PERMITE PODER VISUALIZAR LOS DATOS DE DOS TABLAS SIN ACCEDER
