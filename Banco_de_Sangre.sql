@@ -278,7 +278,7 @@ BEGIN
 	DECLARE	 @cantidadBolsa int	        
 	--cargar la cantidad de bolsa de el estado pasado por parametro
 	 set @cantidadBolsa= (select COUNT(@idEstado)
-                         from bolsa)
+                         from bolsa where id_estado=@idEstado)
 -- retorna la cantidad de bolsas
 RETURN @cantidadBolsa
 
