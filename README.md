@@ -592,6 +592,72 @@ Esta herramienta es una de las más esenciales y utilizadas mundialmente, por lo
 
 Así mismo cabe aclarar algunas dificultades que pudimos afrontar como grupo debido al tema elegido de la gestión de datos de un banco de sangre, ya que se tuvo que hacer una extensa investigación del funcionamiento administrativo de las donaciones de sangre, así también como los diferentes estudios que se deben tener en cuenta a la hora de donar.
 
+**Trigger**
+
+Para ver el funcionamiento del trigger “TR\_bolsa\_fechCaducidad”  insertamos registros en la tabla bolsa, al insertar los registros estos toman valores por defecto en los campos fecha\_vencimiento (null) y el campo id\_estado (1) que significa que la unidad de sangre está pendiente de la prueba de enfermedades.
+
+![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 001](https://user-images.githubusercontent.com/59345599/201813723-9df5a84b-da65-47ae-9f8e-c93d498dd08c.png)
+
+
+Realizamos la inserción de registro para la tabla “pruebas\_donante” correspondiente a cada unidad de sangre ingresada anteriormente.al realizar esta accion se dispara el trigger, que se encarga de asignar una fecha de vencimiento (dependiendo del tipo de componente contenido en la bolsa) en el caso de que la prueba no se encuentre ningún tipo de virus, caso contrario omite este paso, en cualquiera de los casos además actualiza el valor del estado a 2 (estado aceptado) o 3 (estado rechazado)
+
+![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 002](https://user-images.githubusercontent.com/59345599/201813746-5099b2c0-9140-42e4-806e-b9584b65de8a.png)
+
+
+
+**Usuario y roles**
+
+Creamos un nuevo rol en nuestra base de datos, le asignamos un nombre y el propietario de dicho rol.
+![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 003](https://user-images.githubusercontent.com/59345599/201813808-48b33269-f888-4ca2-8c00-880c6a140b1b.png)
+![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 004](https://user-images.githubusercontent.com/59345599/201813822-6be60228-4594-40ef-b54c-bbf9bef8ab67.png)
+
+Seleccionamos los tipos de objetos a los que tendrá acceso este rol
+
+![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 005](https://user-images.githubusercontent.com/59345599/201813859-4fa87319-3f3a-4c78-b573-f51c34e04503.png)
+Damos acceso a cada uno de los objetos que deseamos.
+
+![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 006](https://user-images.githubusercontent.com/59345599/201813894-612d96a4-5f38-4ff4-a340-fee7ae28174a.png)![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 007](https://user-images.githubusercontent.com/59345599/201813910-877df7b5-71cd-4d82-a74c-3cfee66ad636.png)
+![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 008](https://user-images.githubusercontent.com/59345599/201813930-fc26e501-afb5-44b2-83a1-2702f55ff134.png)
+
+Creamos un nuevo login que usaremos para el rol creado previamente![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 009](https://user-images.githubusercontent.com/59345599/201814027-b0c63d7c-fea9-43f1-b6a2-4fdc8d48638f.png)
+
+Asignamos nombre y contraseña para el usuario a logear
+
+![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 010](https://user-images.githubusercontent.com/59345599/201814061-9147d130-d202-44ce-b888-4f3c5c5c5922.png)
+
+Por último le asignamos el rol que creamos anteriormente
+
+![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 011](https://user-images.githubusercontent.com/59345599/201814083-db2e2050-0b63-46a1-9470-5a031c380fa2.png)
+
+Ingresamos con el login creado para probar su funcionamiento
+
+![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 012](https://user-images.githubusercontent.com/59345599/201814113-55ede617-9bc3-4108-aacf-ba09e472f722.png)
+
+
+Intentamos acceder a alguna tabla y nos muestra el siguiente mensaje de error![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 013](https://user-images.githubusercontent.com/59345599/201814151-4ee7c3e0-ab92-4fd7-a9c8-25aa62dbc1dd.png)
+
+Comprobamos si tiene acceso a la vista a la cual le dimos permiso.
+
+![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 014](https://user-images.githubusercontent.com/59345599/201814179-62d845e6-7f15-49b0-8136-2fccf58e4bbf.png)
+
+**Transacción**
+
+hacemos un select sobre nuestra tabla principal para ver los valores originales.
+
+![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 015](https://user-images.githubusercontent.com/59345599/201814220-118da305-0942-4a35-91ca-739d85a0470e.png)
+
+ejecutamos la siguiente instrucción, donde actualizamos la tabla con un valor no permitido, el campo “fecha\_recepcion” cuenta con una restricción donde la fecha a ingresar debe ser menor o igual a la fecha actual, por lo que ingresamos una fecha no válida para comprobar la transacción
+
+![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 016](https://user-images.githubusercontent.com/59345599/201814239-4293c40e-47a5-418e-b6c9-1c6e28add045.png)
+
+Al ejecutar la  instrucción y obtenemos el siguiente error
+
+![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 017](https://user-images.githubusercontent.com/59345599/201814265-3b5d55d1-ca11-4652-9ad7-7c1b8c112160.png)
+
+Verificamos la tabla para comprobar que no se modificaron los valores.
+
+![Aspose Words b705b8c3-d996-4d1b-b871-f1b8d36a8cd0 018](https://user-images.githubusercontent.com/59345599/201814293-a66ddaa6-c0e0-4924-b7fd-dceb6ecc6d79.png)
+
 **Backup y restauración**
 
 Para generar la copia de seguridad (Backup) nos posicionamos sobre la base de datos Banco\_de\_sangre , elegimos las opciones tarea>copia de seguridad
