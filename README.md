@@ -220,6 +220,7 @@ Tipo\_hemocomponente:
 | :- | :- | :- | :- |
 |*id\_hemocomponente*|int|4|Número identificatorio del hemocomponente.|
 |descripcion|varchar|15|[Glóbulos rojos , plaquetas , plasma]|
+
 Estado:
 
 |Campo|Tipo|Longitud|Descripción|
